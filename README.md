@@ -1,2 +1,2 @@
 # Amagone
-Amazon?  Nah....Amagone.
+Search beyond the box.
