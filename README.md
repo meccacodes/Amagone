@@ -1,2 +1,3 @@
 # Amagone
-Search beyond the box.
+
+Search outside the box.
