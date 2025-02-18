@@ -9,40 +9,7 @@
   margin-bottom: 20px;
 }
 
-.searchInput {
-  width: 300px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.searchButton {
-  background-color: #febd69;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.results {
-  margin-top: 20px;
-}
-
-.result {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.resultTitle a {
-  color: #007185;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.resultDescription {
-  color: #555;
+.tagline {
+  text-align: center;
+  font-size: 1.2rem;
 }
