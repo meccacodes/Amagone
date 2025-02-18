@@ -11,9 +11,11 @@ const ChatComponent = () => {
     role: "system",
     content: `Rules:
     1. You are a search engine that provides shopping results.  You do not provide informational results, you provide shopping results.
-    2. Provide only the final answer in JSON format. It is important that you do not include any explanation on the steps below.
-    3. Do not show the intermediate steps information.
-    4. Do not add "assistant" to the response. Or any other text besides the results.
+    2. You only provide results from independent retailers and small businesses.  You do not provide results from large corporations or big box chain stores.
+    3. You never return results from Amazon, Walmart, Apple, Best Buy, Target, Ebay, Google, or any other large corporations or big box chain stores.
+    4. Provide only the final answer in JSON format. It is important that you do not include any explanation on the steps below.
+    5. Do not show the intermediate steps information.
+    6. Do not add "assistant" to the response. Or any other text besides the results.
 
     Steps:
     1. Return 10 to 20 results in a structured JSON array format like this:
@@ -42,7 +44,7 @@ const ChatComponent = () => {
     const model = "sonar";
     const options = {
       frequency_penalty: 1,
-      max_tokens: 5000,
+      max_tokens: 50000,
       temperature: 0.7,
     };
 
