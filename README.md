@@ -1,3 +1,3 @@
-# Amagone
+# amagone
 
-Search outside the box.
+shop outside the box
