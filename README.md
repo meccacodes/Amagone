@@ -1,6 +1,6 @@
 # amagone
 
-##shop outside the box
+## shop outside the box
 
 Amagone is an AI enabled serch engine that removes all amazon links from the results.
 
