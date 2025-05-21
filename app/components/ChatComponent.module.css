@@ -3,50 +3,150 @@
   padding: 20px;
   background-color: #f7f7f7;
   text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .searchInput {
-  width: 300px;
-  padding: 10px;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  border-left: 1px solid #ccc;
-  border-right: none;
+  width: 70%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
   border-radius: 4px 0 0 4px;
+  margin-right: 0;
   outline: none;
 }
 
 .searchButton {
+  padding: 12px 24px;
+  font-size: 16px;
   background-color: #febd69;
-  border-left: none;
-  padding: 10px 20px;
+  color: #111;
+  border: 1px solid #ccc;
   border-radius: 0 4px 4px 0;
   cursor: pointer;
   font-weight: bold;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  border-right: 1px solid #ccc;
+  transition: background-color 0.2s;
+}
+
+.searchButton:hover {
+  background-color: #f3a847;
+}
+
+.resultsContainer {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.resultCard {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+  text-align: left;
 }
 
 .results {
-  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .result {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 10px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+}
+
+.result:last-child {
+  border-bottom: none;
+}
+
+.resultTitle {
   margin-bottom: 10px;
-  text-align: left;
 }
 
 .resultTitle a {
   color: #007185;
   text-decoration: none;
+  font-size: 18px;
   font-weight: bold;
+}
+
+.resultTitle a:hover {
+  color: #c7511f;
+  text-decoration: underline;
+}
+
+.price {
+  margin-left: 10px;
+  color: #b12704;
+  font-weight: 500;
 }
 
 .resultDescription {
   color: #555;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.resultDetails {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  font-size: 14px;
+  color: #555;
+  background-color: #f8f8f8;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.label {
+  font-weight: 500;
+  color: #111;
+  margin-right: 5px;
+}
+
+.location,
+.storeType,
+.rating,
+.specialties {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 0;
+}
+
+.contact {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.phone,
+.address {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 0;
+}
+
+.localFocus {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #f0f7ff;
+  border: 1px solid #007185;
+  border-radius: 4px;
+  color: #007185;
+  font-weight: 500;
+  text-align: center;
 }

@@ -9,28 +9,49 @@ const ChatComponent = () => {
 
   const systemPrompt = {
     role: "system",
-    content: `Rules:
-    1. You are a search engine that provides shopping results.  You do not provide informational results, you provide shopping results.
-    2. You only provide results from independent retailers and small businesses.  You do not provide results from large corporations or big box chain stores.
-    3. You never return results from Amazon, Walmart, Apple, Best Buy, Target, Ebay, Google, or any other large corporations or big box chain stores.
-    4. Provide only the final answer in JSON format. It is important that you do not include any explanation on the steps below.
-    5. Do not show the intermediate steps information.
-    6. Do not add "assistant" to the response. Or any other text besides the results.
+    content: `You are a specialized local shopping search engine that helps users find products from independent retailers and small businesses. Your primary goal is to connect users with local and independent sellers.
 
-    Steps:
-    1. Return 10 to 20 results in a structured JSON array format like this:
-       result = [
-         {
-           title: "Example Title",
-           url: "https://example.com/",
-           description: "Example description."
-         },
-         // ... more results ...
-       ];
-    2. Do not include any results from Amazon, Walmart, Apple, Best Buy, Target, Ebay, Google, or any other large corporations or big box chain stores.  We are looking for small independent stores and retailers.
-    3. If you can read the user's IP or if a location is given, serve local results for people who want to shop locally.
-    4. List results in the fashion of a search engine.  Include links to the location's websites, Provide information on the user's query with relevant web links.
-    5. Do not add "assistant" to the response. Or any other text besides the results.`,
+Rules:
+1. ONLY provide shopping results - no informational content or general descriptions
+2. EXCLUSIVELY return results from independent retailers and small businesses
+3. NEVER include results from: Amazon, Walmart, Apple, Best Buy, Target, Ebay, Google, or any other large corporations
+4. Prioritize local businesses when a location is mentioned
+5. Return results in JSON format only, with no additional text or explanations
+
+Result Format:
+Return 10-20 results in this JSON structure:
+{
+  "results": [
+    {
+      "title": "Product or Store Name",
+      "url": "https://store-website.com",
+      "description": "Brief product/store description",
+      "price": "Price if available",
+      "location": "City, State",
+      "store_type": "Boutique/Shop/Store/etc",
+      "local_rating": "Local rating if available",
+      "specialties": ["Specialty 1", "Specialty 2"],
+      "contact": {
+        "phone": "Phone number if public",
+        "address": "Physical address if public"
+      }
+    }
+  ],
+  "local_focus": true/false,
+  "search_location": "Detected location if any"
+}
+
+Guidelines:
+1. When a location is mentioned, prioritize businesses within 25 miles
+2. Include a mix of online and physical stores
+3. Focus on unique, specialty, and artisanal products
+4. Include relevant store specialties and unique selling points
+5. Add contact information when publicly available
+6. Include price information when available
+7. Highlight local ratings and reviews when available
+8. For physical stores, include business hours if available
+
+Remember: Quality over quantity. Better to return fewer, highly relevant results than many mediocre ones.`,
   };
 
   const handleSend = async () => {
@@ -92,14 +113,63 @@ const ChatComponent = () => {
   const renderResults = (result) => {
     return (
       <div className={styles.results}>
-        {result.map((item, index) => (
+        {result.results.map((item, index) => (
           <div key={index} className={styles.result}>
             <div className={styles.resultTitle}>
-              <a href={item.url}>{item.title}</a>
+              <a href={item.url} target="_blank" rel="noopener noreferrer">
+                {item.title}
+              </a>
+              {item.price && <span className={styles.price}>{item.price}</span>}
             </div>
             <div className={styles.resultDescription}>{item.description}</div>
+            <div className={styles.resultDetails}>
+              {item.location && (
+                <div className={styles.location}>
+                  <span className={styles.label}>Location:</span>{" "}
+                  {item.location}
+                </div>
+              )}
+              {item.store_type && (
+                <div className={styles.storeType}>
+                  <span className={styles.label}>Type:</span> {item.store_type}
+                </div>
+              )}
+              {item.local_rating && (
+                <div className={styles.rating}>
+                  <span className={styles.label}>Rating:</span>{" "}
+                  {item.local_rating}
+                </div>
+              )}
+              {item.specialties && item.specialties.length > 0 && (
+                <div className={styles.specialties}>
+                  <span className={styles.label}>Specialties:</span>{" "}
+                  {item.specialties.join(", ")}
+                </div>
+              )}
+              {item.contact && (
+                <div className={styles.contact}>
+                  {item.contact.phone && (
+                    <div className={styles.phone}>
+                      <span className={styles.label}>Phone:</span>{" "}
+                      {item.contact.phone}
+                    </div>
+                  )}
+                  {item.contact.address && (
+                    <div className={styles.address}>
+                      <span className={styles.label}>Address:</span>{" "}
+                      {item.contact.address}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         ))}
+        {result.local_focus && (
+          <div className={styles.localFocus}>
+            Showing local results for: {result.search_location}
+          </div>
+        )}
       </div>
     );
   };

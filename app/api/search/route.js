@@ -6,7 +6,10 @@ export async function POST(request) {
     console.log("Incoming request body:", { messages, model, options });
 
     const API_KEY = process.env.PERPLEXITY_API_KEY;
-    console.log("API Key:", API_KEY);
+    if (!API_KEY) {
+      throw new Error("PERPLEXITY_API_KEY is not configured");
+    }
+
     const API_URL = "https://api.perplexity.ai/chat/completions";
 
     const response = await fetch(API_URL, {
@@ -22,21 +25,21 @@ export async function POST(request) {
       }),
     });
 
-    console.log("Response status:", response.status);
-
     if (!response.ok) {
       const errorText = await response.text();
       console.error("Error response from Perplexity API:", errorText);
-      throw new Error(`HTTP error! status: ${response.status}`);
+      return NextResponse.json(
+        { error: `API request failed: ${response.status}` },
+        { status: response.status }
+      );
     }
 
     const data = await response.json();
     return NextResponse.json(data);
   } catch (error) {
     console.error("Error in /api/search:", error);
-    console.error("Full error details:", error.stack);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: error.message || "Internal Server Error" },
       { status: 500 }
     );
   }
